@@ -1,0 +1,1 @@
+Toto je README soubor k vizualizačnímu nástroji obousměerného Dijkstrova algoritmu, který je součástí mé bakalářské práce.
