@@ -75,7 +75,12 @@ html, body {
     flex-direction: column;
     gap: 5px;
     padding-left: 10px;
+    padding-right: 10px;
     width: 15%;
+}
+
+#strategy_text {
+    display: flex;
 }
 
 .select {
@@ -99,4 +104,19 @@ html, body {
 
 .main_button:hover { 
     background-color: #0056b3; 
+}
+
+#steps {
+    display: flex;
+    flex-direction: column;
+}
+
+#number_of_steps {
+    display: flex;
+    height: 48%;
+}
+
+#steps_text {
+    display: flex;
+    height: 48%;
 }

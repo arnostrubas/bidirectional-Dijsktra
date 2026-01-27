@@ -12,15 +12,17 @@
 <body>
     <div id="above_containers">
         <div id="strategies_select_1">
+            <div id="strategy_text">Strategie ukončení</div>
             <select class="select" id="end_strategy_1">
-                <option value="default">Strategie ukončení</option>
+                <option value="default"></option>
                 <option value="first_encounter">První průsečík</option>
                 <option value="same_vertex_closed">Stejný vrchol</option>
                 <option value="using_search_distance">Vzdálenost průzkumů</option>
                 <option value="Dijkstra">Dijkstrův algoritmus</option>
             </select>
+            <div id="strategy_text">Strategie prohledávání</div>
             <select class="select" id="search_strategy_1">
-                <option value="default">Strategie prohledávání</option>
+                <option value="default"></option>
                 <option value="one_vertex">Po jednom vrcholu</option>
                 <option value="one_edge">Po jedné hraně</option>
                 <option value="less_open_vertexes">Méně otevřených vrcholů</option>
@@ -30,17 +32,27 @@
         </div>
         <button class="main_button" id="start">Start</button>
         <button class="main_button" id="next_step">Next step</button>
+        <div id="steps">
+            <div id="steps_text"> vyberte počet kroků</div>
+            <select id="number_of_steps">
+                <option value="default">1 hrana</option>
+                <option value="vertex">1 vrchol</option>
+                <option value="end_result">Výsledná cesta</option>
+            </select>
+        </div>
         <button class="main_button" id="reset">Reset</button>
         <div id="strategies_select_2">
-            <select class="select" id="end_strategy_1">
-                <option value="default">Strategie ukončení</option>
+            <div id="strategy_text">Strategie ukončení</div>
+            <select class="select" id="end_strategy_2">
+                <option value="default"></option>
                 <option value="first_encounter">První průsečík</option>
                 <option value="same_vertex_closed">Stejný vrchol</option>
                 <option value="using_search_distance">Vzdálenost průzkumů</option>
                 <option value="Dijkstra">Dijkstrův algoritmus</option>
             </select>
-            <select class="select" id="search_strategy_1">
-                <option value="default">Strategie prohledávání</option>
+            <div id="strategy_text">Strategie prohledávání</div>
+            <select class="select" id="search_strategy_2">
+                <option value="default"></option>
                 <option value="one_vertex">Po jednom vrcholu</option>
                 <option value="one_edge">Po jedné hraně</option>
                 <option value="less_open_vertexes">Méně otevřených vrcholů</option>
