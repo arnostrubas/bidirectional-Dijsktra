@@ -31,7 +31,7 @@
             </select>
         </div>
         <button class="main_button" id="start">Start</button>
-        <button class="main_button" id="next_step">Next step</button>
+        <button class="main_button" id="next_step" disabled>Next step</button>
         <div id="steps">
             <div id="steps_text"> vyberte počet kroků</div>
             <select id="number_of_steps">
@@ -40,7 +40,7 @@
                 <option value="end_result">Výsledná cesta</option>
             </select>
         </div>
-        <button class="main_button" id="reset">Reset</button>
+        <button class="main_button" id="reset" disabled>Reset</button>
         <div id="strategies_select_2">
             <div id="strategy_text">Strategie ukončení</div>
             <select class="select" id="end_strategy_2">
@@ -77,6 +77,32 @@
     </div>
    
     <script>
+        const startBtn = document.getElementById('start');
+        const resetBtn = document.getElementById('reset');
+        const nextBtn = document.getElementById('next_step');
+
+        startBtn.addEventListener('click', () => {
+            try {
+                startBtn.disabled = true;
+                nextBtn.disabled = false;
+                resetBtn.disabled = false;
+            }
+            catch (error) {
+                alert(error.message)
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            try {
+                resetBtn.disabled = true;
+                nextBtn.disabled = true;
+                startBtn.disabled = false;
+            }
+            catch (error) {
+                alert(error.message)
+            }
+        });
+
         function setStatus(id, value) {
             const el = document.getElementById(id);
             if (el) el.innerText = value;

@@ -95,7 +95,7 @@ html, body {
 .main_button {
     flex: 1;
     font-size: 1.5vw; 
-    background-color: #929292;
+    background-color: #648cfa;
     cursor: pointer; 
     border: none; 
     border-radius: 5px; 
@@ -104,6 +104,10 @@ html, body {
 
 .main_button:hover { 
     background-color: #0056b3; 
+}
+
+.main_button:disabled {
+    background-color: #929292;
 }
 
 #steps {
