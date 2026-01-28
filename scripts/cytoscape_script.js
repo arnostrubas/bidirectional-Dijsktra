@@ -24,6 +24,7 @@ let elements = [{ data: { id: 's', label: 'S' } },
     { data: { id: '3', label: '3' } },
     { data: { id: '4', label: '4' } },
     { data: { id: '5', label: '5' } },
+    { data: { id: '6', label: '6' } },
     { data: { id: 't', label: 'T' } },
 
     { data: { id: 'e1', source: 's', target: '1', weight: 5 } },
@@ -35,6 +36,9 @@ let elements = [{ data: { id: 's', label: 'S' } },
     { data: { id: 'e7', source: '4', target: '5', weight: 1 } },
     { data: { id: 'e8', source: '5', target: '3', weight: 8 } },
     { data: { id: 'e9', source: '3', target: 't', weight: 3 } },
+    { data: { id: 'e10', source: '4', target: '6', weight: 2 } },
+    { data: { id: 'e11', source: 't', target: '6', weight: 4 } },
+    { data: { id: 'e12', source: 's', target: 't', weight: 10000}}
 ];
 
 export function graphs_init() {
