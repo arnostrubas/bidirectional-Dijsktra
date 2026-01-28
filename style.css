@@ -100,10 +100,6 @@ html, body {
     border: none; 
     border-radius: 5px; 
     padding: 10px;
-
-    appearance: none;
-    -webkit-appearance: none;
-    display: inline-block;
 }
 
 .main_button:hover { 
@@ -128,4 +124,39 @@ html, body {
 #steps_text {
     display: flex;
     height: 48%;
+}
+
+/*  ====================================================================================
+    ADD/REMOVE 
+    ====================================================================================
+*/
+#adding_removing {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 10px;
+}
+
+.add_remove_button {
+    flex: 1;
+    font-size: 1.5vw; 
+    background-color: #7093f3;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 10px;
+}
+
+.add_remove_button:hover { 
+    background-color: #80b2e4; 
+}
+
+#checkboxes {
+    display: flex;
+    flex-direction: column;
+}
+
+.add_remove_button:disabled {
+    background-color: #929292;
+    cursor: not-allowed;
 }
