@@ -184,3 +184,8 @@ export function getcy1Elements() {
 export function getcy2Elements() {
     return clean_data(cy2);
 }
+
+export function calculate(json)
+{
+    //window.run(json)
+}

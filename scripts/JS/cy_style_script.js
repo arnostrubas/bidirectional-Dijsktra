@@ -12,31 +12,62 @@ export let style = [
             'height': '50px',
             'text-valign': 'center',
             'text-halign': 'center',
-            'color': '#333',
             'font-size': '12px',
             'border-width': 2,
-            'border-color': '#555'
+            'border-color': '#555',
+            'background-opacity': 0.5,
+            'background-fill': 'linear-gradient',
+            'background-gradient-stop-colors': 'gray gray', 
+            'background-gradient-stop-positions': '50% 50%',
+            'background-gradient-direction': 'to-right'
         }
     },
     {
-        selector: 'node[state = "UNVISITED"]',
+        selector: 'node[state1 = "UNVISITED"][state2 = "OPEN"]',
         style: {
-            'background-color': '#e0e0e0', 
+            'background-gradient-stop-colors': 'gray green', 
         }
     },
     {
-        selector: 'node[state = "OPEN"]',
+        selector: 'node[state1 = "UNVISITED"][state2 = "CLOSED"]',
         style: {
-            'background-color': '#ffc107',
-            'border-color': '#d39e00'
+            'background-gradient-stop-colors': 'gray purple', 
         }
     },
     {
-        selector: 'node[state = "CLOSED"]',
+        selector: 'node[state1 = "OPEN"][state2 = "UNVISITED"]',
         style: {
-            'background-color': '#28a745',
-            'color': 'white',
-            'border-color': '#1e7e34'
+            'background-gradient-stop-colors': 'orange gray', 
+        }
+    },
+    {
+        selector: 'node[state1 = "OPEN"][state2 = "OPEN"]',
+        style: {
+            'background-gradient-stop-colors': 'orange green', 
+        }
+    },
+    {
+        selector: 'node[state1 = "OPEN"][state2 = "CLOSED"]',
+        style: {
+            'background-gradient-stop-colors': 'orange purple', 
+        }
+    },
+    {
+        selector: 'node[state1 = "CLOSED"][state2 = "UNVISITED"]',
+        style: {
+            'background-gradient-stop-colors': 'red gray', 
+        }
+    },
+    {
+        selector: 'node[state1 = "CLOSED"][state2 = "OPEN"]',
+        style: {
+            'background-gradient-stop-colors': 'red green', 
+        }
+    },
+    {
+        selector: 'node[state1 = "CLOSED"][state2 = "CLOSED"]',
+        style: {
+            'background-gradient-stop-colors': 'red purple', 
         }
     },
     {

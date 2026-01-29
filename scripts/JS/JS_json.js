@@ -19,5 +19,5 @@ export function create_json_of_graphs(search_strat1, search_strat2, end_strat1, 
         part_one: cy1JSON,
         part_two: cy2JSON
     }
-    console.log(final_json);
+    return JSON.stringify(final_json);
 }

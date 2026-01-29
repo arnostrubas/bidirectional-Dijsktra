@@ -9,46 +9,47 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
     <script type="py" src="./scripts/python/code.py"></script>
     <div id="adding_removing">
         <div id="checkboxes">
             <label>
-                <input type="checkbox" id="both_graphs" checked> Upravit oba grafy (zatím nefunkční)
+                <input type="checkbox" id="both_graphs" checked> Add to both graphs (not working yet)
             </label>
-            <div>Jakmile je jeden graf upraven samostatně, přestane fungovat</div>
+            <div>When unchecked and one graph is updated, stops working</div>
         </div>
         <div id="checkboxes">
             <label>
-                <input type="checkbox" id="add_vertex"> Přidávání vrcholu (přidáte kliknutím na volné místo v grafu)
+                <input type="checkbox" id="add_vertex"> Vertex adding (click on empty space)
             </label>
             <label>
-                <input type="checkbox" id="add_edge"> Přidávání hrany (přidáte podržením a potažením z vrcholu)
+                <input type="checkbox" id="add_edge"> Edge adding (hold and drag from vertex)
             </label>
         </div>        
-        <button class="add_remove_button" id="remove_vertex">Odstranit vybraný vrchol</button>
-        <button class="add_remove_button" id="remove_edge">Odstranit vybranou hranu</button>
+        <button class="add_remove_button" id="remove_vertex">Delete selected vertex</button>
+        <button class="add_remove_button" id="remove_edge">Delete selected edge</button>
+        <div id="python_ready" style="width: 30px; height: 30px; background-color: red; border-radius: 5px;"></div>
+        <div>python ready</div>
     </div>
     <div id="fill"></div>
     <div id="above_containers">
         <div id="strategies_select_1">
-            <div id="strategy_text">Strategie ukončení</div>
+            <div id="strategy_text">Ending strategy</div>
             <select class="select" id="end_strategy_1">
                 <option value="default"></option>
-                <option value="first_encounter">První průsečík</option>
-                <option value="same_vertex_closed">Stejný vrchol</option>
-                <option value="using_search_distance">Vzdálenost průzkumů</option>
-                <option value="Dijkstra">Dijkstrův algoritmus</option>
+                <option value="first_encounter">First encounter</option>
+                <option value="same_vertex_closed">Same vertex closed</option>
+                <option value="using_search_distance">Distance of search</option>
+                <option value="Dijkstra">Dijkstra algorithm</option>
             </select>
-            <div id="strategy_text">Strategie prohledávání</div>
+            <div id="strategy_text">Search strategy</div>
             <select class="select" id="search_strategy_1">
                 <option value="default"></option>
-                <option value="one_vertex">Po jednom vrcholu</option>
-                <option value="one_edge">Po jedné hraně</option>
-                <option value="less_open_vertexes">Méně otevřených vrcholů</option>
-                <option value="lower_queue_priority">Nižší priorita fronty</option>
-                <option value="Dijkstra">Dijkstrův algoritmus</option>
+                <option value="one_vertex">After one vertex</option>
+                <option value="one_edge">After one edge</option>
+                <option value="less_open_vertexes">Less open vertexes</option>
+                <option value="lower_queue_priority">Queue with lower priority</option>
+                <option value="Dijkstra">Dijkstra algorithm</option>
             </select>
         </div>
         <div class="empty"></div>
@@ -59,33 +60,33 @@
         <div id="middle"></div>
         <div id="steps">
             <div id="steps_buttons">
-                <button class="main_button" id="prev_step" disabled>Předchozí krok</button>
-                <button class="main_button" id="next_step" disabled>Další krok</button>
+                <button class="main_button" id="prev_step" disabled>Previous step</button>
+                <button class="main_button" id="next_step" disabled>Next step</button>
             </div>
-            <div id="steps_text"> vyberte velikost kroku</div>
+            <div id="steps_text">Step size</div>
             <select id="number_of_steps">
-                <option value="default">1 hrana</option>
-                <option value="end_result">Výsledná cesta</option>
+                <option value="default">1 edge</option>
+                <option value="end_result">Only shortest path</option>
             </select>
         </div>
         <div class="empty"></div>
         <div id="strategies_select_2">
-            <div id="strategy_text">Strategie ukončení</div>
+            <div id="strategy_text">Ending strategy</div>
             <select class="select" id="end_strategy_2">
                 <option value="default"></option>
-                <option value="first_encounter">První průsečík</option>
-                <option value="same_vertex_closed">Stejný vrchol</option>
-                <option value="using_search_distance">Vzdálenost průzkumů</option>
-                <option value="Dijkstra">Dijkstrův algoritmus</option>
+                <option value="first_encounter">First encounter</option>
+                <option value="same_vertex_closed">Same vertex closed</option>
+                <option value="using_search_distance">Distance of search</option>
+                <option value="Dijkstra">Dijkstra algorithm</option>
             </select>
-            <div id="strategy_text">Strategie prohledávání</div>
+            <div id="strategy_text">Search strategy</div>
             <select class="select" id="search_strategy_2">
                 <option value="default"></option>
-                <option value="one_vertex">Po jednom vrcholu</option>
-                <option value="one_edge">Po jedné hraně</option>
-                <option value="less_open_vertexes">Méně otevřených vrcholů</option>
-                <option value="lower_queue_priority">Nižší priorita fronty</option>
-                <option value="Dijkstra">Dijkstrův algoritmus</option>
+                <option value="one_vertex">After one vertex</option>
+                <option value="one_edge">After one edge</option>
+                <option value="less_open_vertexes">Less open vertexes</option>
+                <option value="lower_queue_priority">Queue with lower priority</option>
+                <option value="Dijkstra">Dijkstra algorithm</option>
             </select>
         </div>
     </div>
@@ -95,12 +96,12 @@
     </div>
     <div id="queues">
         <div id="first_queues">
-            <div class="priority_queue_f" id="Qf1"> Q<sub>f</sub>: <span id="Qf1_text"> Prioritní fronta 1.1 </span> </div>
-            <div class="priority_queue_b" id="Qb1"> Q<sub>b</sub>: <span id="Qb1_text"> Prioritní fronta 1.2 </span> </div>
+            <div class="priority_queue_f" id="Qf1"> Q<sub>f</sub>: <span id="Qf1_text"> Priority queue 1.1 </span> </div>
+            <div class="priority_queue_b" id="Qb1"> Q<sub>b</sub>: <span id="Qb1_text"> Priority queue 1.2 </span> </div>
         </div>
         <div id="second_queues">
-            <div class="priority_queue_f" id="Qf2"> Q<sub>f</sub>: <span id="Qf2_text"> Prioritní fronta 2.1 </span> </div>
-            <div class="priority_queue_b" id="Qb2"> Q<sub>b</sub>: <span id="Qb2_text"> Prioritní fronta 2.2 </span> </div>
+            <div class="priority_queue_f" id="Qf2"> Q<sub>f</sub>: <span id="Qf2_text"> Priority queue 2.1 </span> </div>
+            <div class="priority_queue_b" id="Qb2"> Q<sub>b</sub>: <span id="Qb2_text"> Priority queue 2.2 </span> </div>
         </div>
     </div>
     <script type="importmap">

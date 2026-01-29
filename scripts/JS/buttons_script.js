@@ -1,4 +1,4 @@
-import { disableVertexAdding, enableVertexAdding, enableEdgeAdding, disableEdgeAdding, remove_edge, remove_vertex, reset } from './cytoscape_script.js'
+import { calculate, disableVertexAdding, enableVertexAdding, enableEdgeAdding, disableEdgeAdding, remove_edge, remove_vertex, reset } from './cytoscape_script.js'
 import { create_json_of_graphs } from './JS_json.js'
 
 const startBtn = document.getElementById('start');
@@ -56,7 +56,8 @@ startBtn.addEventListener('click', () => {
             prevBtn.disabled = false;
             resetBtn.disabled = false;
             add_remove_disable();
-            create_json_of_graphs(search_strat1, search_strat2, end_strat1, end_strat2);
+            let json = create_json_of_graphs(search_strat1, search_strat2, end_strat1, end_strat2);
+            calculate(json);
         }
     }
     catch (error) {
