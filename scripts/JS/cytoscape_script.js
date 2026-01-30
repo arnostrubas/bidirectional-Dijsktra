@@ -14,6 +14,7 @@ let cy1 = cytoscape({
     style: style,
 });
 let eh1 = cy1.edgehandles();
+let first_graph = null;
 let first_graph_list = [];
 let first_graph_n = 0;
 let first_graph_q_f = [];
@@ -26,6 +27,7 @@ let cy2 = cytoscape({
     style: style,
 });
 let eh2 = cy2.edgehandles();
+let second_graph = null;
 let second_graph_list = [];
 
 /* 
@@ -162,6 +164,14 @@ function update_queue()
     setText('Qb1_text', queue_to_text(first_graph_q_b[first_graph_n]));
 }
 
+function reset_graphs()
+{
+    first_graph_list = [];
+    first_graph_q_f = [];
+    first_graph_q_b = [];
+    first_graph_n = 0;
+}
+
 /*
 ==================================================================================
                             EXPORT FUNCTIONS
@@ -208,8 +218,17 @@ export function remove_edge()
 }
 
 export function reset() {
+    setText('Qf1_text', "");
+    setText('Qb1_text', "");
+    cy1.remove(cy1.elements());
+    cy1.add(first_graph);
     cy1.layout(layout).run();
     cy1.fit();
+
+    setText('Qf2_text', "");
+    setText('Qb2_text', "");
+    cy2.remove(cy2.elements());
+    cy2.add(second_graph);
     cy2.layout(layout).run();
     cy2.fit();
 }
@@ -235,6 +254,10 @@ export function getcy2Elements() {
 
 export function calculate(json)
 {
+    first_graph = cy1.elements().clone();
+    second_graph = cy2.elements().clone();
+    reset_graphs();
+
     let result = window.run(json)
     const data = JSON.parse(result)
     const first_part = data.part_one
