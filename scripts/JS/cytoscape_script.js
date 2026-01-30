@@ -243,7 +243,6 @@ export function disableEdgeAdding() {
     eh2.disableDrawMode();
 }
 
-
 export function getcy1Elements() {
     return clean_data(cy1);
 }

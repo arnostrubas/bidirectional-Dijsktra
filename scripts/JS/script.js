@@ -7,4 +7,5 @@ window.python_ready = function ()
 {
     let ready = document.getElementById('python_ready');
     ready.style.backgroundColor = 'green';
+    document.getElementById('start').disabled = false;
 }
