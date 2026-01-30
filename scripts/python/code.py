@@ -1,10 +1,209 @@
+import networkx as nx
 from js import window
 import json
 import heapq
 
-def test():
-    return "wuhuuuuu, python connected baby"
+#region custom_classes
+class Node:
+    def __init__(self, id, d_f = None, pi_f = None, state_f = None, d_b = None, pi_b = None, state_b = None):
+        self.id = id
+        self.d_f = d_f
+        self.pi_f = pi_f
+        self.state_f = state_f
+        self.d_b = d_b
+        self.pi_b = pi_b
+        self.state_b = state_b
 
-window.test = test
+    def __lt__(self, other):
+        if self is None or other is None:
+            return NotImplemented
+        return self.id < other.id
+    
+    def __str__(self):
+        return str(self.id)
+
+
+class Queue(list):
+    def __init__(self, forward = True):
+        self.count = 0
+        self.forward = forward
+
+    def insert(self, element):
+        if (self.forward):
+            heapq.heappush(self, (element.d_f, element))
+        else:
+            heapq.heappush(self, (element.d_b, element))
+        self.count += 1
+
+    def update(self, element):
+        if (self.forward):
+            heapq.heappush(self, (element.d_f, element))
+        else:
+            heapq.heappush(self, (element.d_b, element))
+
+    def extractMin(self):
+        d, element = heapq.heappop(self)
+        if (self.forward):
+            while element.d_f != d:
+                if len(self) == 0:
+                    return None
+                d, element = heapq.heappop(self)
+        else:
+            while element.d_f != d:
+                if len(self) == 0:
+                    return None
+                d, element = heapq.heappop(self)
+        self.count -= 1
+        return element
+    
+    def isEmpty(self):
+        return self.count == 0
+
+#endregion
+
+#region json_functions
+
+def graph_to_json(G):
+    nodes = []
+    for node in G.nodes:
+        label = str(node.id)
+        if(node.id == -1):
+            label = "S"
+        elif (node.id == 0):
+            label ="T"
+        nodes.append({
+            "data": { 
+                "label": label,
+                "id": str(node.id),
+                "d_f": node.d_f,
+                "pi_f": node.pi_f,
+                "state_f": node.state_f,
+                "d_b": node.d_b,
+                "pi_b": node.pi_b,
+                "state_b": node.state_b
+            }
+        })
+
+    edges = []
+    for u, v, data in G.edges(data=True):
+        edges.append({
+            "data": {
+                "source": str(u.id), 
+                "target": str(v.id),  
+                "weight": data['weight']
+            }
+        })
+
+    json_data = {
+        "elements": {
+            "nodes": json.dumps(nodes),
+            "edges": json.dumps(edges)
+        }
+    }
+    return json.dumps(json_data)
+
+#endregion
+
+#region algorithms and their functions
+def w(graph, u, v):
+    return graph[u][v]['weight']
+
+def init(G, s):
+    for node in G.nodes:
+        node.d_f = 999999999
+        node.pi_f = None
+        node.state_f = "UNVISITED"
+        node.d_b = 999999999
+        node.pi_b = None
+        node.state_b = "UNVISITED"
+    s.d_f = 0
+    s.state_f = "OPEN"
+
+def Dijkstra(G, w, s, t):
+    init(G, s)
+    Q = Queue()
+    Q.insert(s)
+    yield 
+    while not Q.isEmpty():
+        v = Q.extractMin()
+        v.state_f = "CLOSED"
+        yield                       # for visualisation purposes
+        if (v == t):
+            return None
+        for u in list(G.successors(v)):
+            if u.state_f == "UNVISITED":
+                u.d_f = v.d_f + w(G, v, u)
+                u.state_f = "OPEN"
+                Q.insert(u)
+                yield               # for visualisation purposes
+            elif u.state_f == "OPEN":
+                if v.d_f + w(G, v, u) < u.d_f:
+                    u.d_f = v.d_f + w(G, v, u)
+                    Q.update(u) 
+                    yield           # for visualisation purposes
+    return None
+#endregion
+
+#region visualisation functions
+def node_from_graph(G, id):
+    for node in G.nodes:
+        if node.id == id:
+            return node
+    return None
+
+def visualise_Dijkstra(G):
+    s = node_from_graph(G, -1) 
+    t = node_from_graph(G, 0)
+    runner = Dijkstra(G, w, s, t)
+    result = []
+    for _ in runner:
+        result.append(graph_to_json(G))
+    res =  {
+        "graph": result
+    }
+    return json.dumps(res)
+
+def run_algorithm(graph_dict):
+    search = graph_dict["search"]
+    end = graph_dict["end"]
+    graph_dict = graph_dict["graph"]
+    nodes = graph_dict["nodes"]
+    edges = graph_dict["edges"]
+
+    G = nx.DiGraph()
+    for node in nodes:
+        n = Node(int(node["id"]))
+        G.add_node(n)
+    for edge in edges:
+        u_id = edge["source"]
+        v_id = edge["target"]
+        u = node_from_graph(G, int(u_id))
+        v = node_from_graph(G, int(v_id))
+        weight = edge["weight"]
+        G.add_weighted_edges_from([(u, v, int(weight))])
+    
+    return visualise_Dijkstra(G)
+    
+
+def run(JSON):
+    json_dict = json.loads(JSON)
+    part_one = json_dict["part_one"]
+    part_two = json_dict["part_two"]
+    result = {
+        "part_one": {
+            "steps": run_algorithm(part_one),
+            "path": None
+        },
+        "part_two": {
+            "steps": run_algorithm(part_two),
+            "path": None
+        }
+    }
+    return json.dumps(result)
+
+
+#endregion
+
+window.run = run
 
 window.python_ready()

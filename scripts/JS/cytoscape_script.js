@@ -13,6 +13,8 @@ let cy1 = cytoscape({
     style: style,
 });
 let eh1 = cy1.edgehandles();
+let first_graph_list = [];
+let first_graph_n = 0;
 
 let cy2 = cytoscape({
     container: container2,
@@ -20,6 +22,7 @@ let cy2 = cytoscape({
     style: style,
 });
 let eh2 = cy2.edgehandles();
+let second_graph_list = [];
 
 /* 
 ==================================================================================
@@ -97,7 +100,6 @@ function clean_data(cy)
     let nodes = cy.nodes().map(node => {
         return {
             id: node.id(),
-            label: node.data('label'),
         }
     });
     let edges = cy.edges().map(edge => {
@@ -112,6 +114,18 @@ function clean_data(cy)
         edges: edges
     };
     return graph;
+}
+
+function createGraph(cy, elements) 
+{ 
+    let nodes = JSON.parse(elements.nodes);
+    let edges = JSON.parse(elements.edges);
+    
+    cy.remove(cy.elements());
+    cy.add(nodes);
+    cy.add(edges);
+    cy.layout(layout).run();
+    cy.fit();
 }
 
 /*
@@ -187,5 +201,52 @@ export function getcy2Elements() {
 
 export function calculate(json)
 {
-    //window.run(json)
+    let result = window.run(json)
+    const data = JSON.parse(result)
+    const first_part = data.part_one
+    const first_steps = first_part.steps;
+    const first_path = first_part.path;
+    const first_graph_json_list = JSON.parse(first_steps).graph;
+
+    first_graph_json_list.forEach(e => {
+        first_graph_list.push(JSON.parse(e).elements)
+    });
+    console.log(first_graph_list);
+    createGraph(cy1, first_graph_list[first_graph_n]);
+}
+
+export function move(next)
+{
+    if (next) {
+        try {
+            if (first_graph_n == first_graph_list.length) 
+            {
+                throw "End of algorithm";
+            } 
+            else 
+            {
+                first_graph_n++;
+                createGraph(cy1, first_graph_list[first_graph_n])
+            }
+        } catch (error) 
+        {
+            alert(error)
+        }
+    } 
+    else {
+        try {
+            if (first_graph_n == 0) 
+            {
+                throw "End of algorithm";
+            } 
+            else 
+            {
+                first_graph_n--;
+                createGraph(cy1, first_graph_list[first_graph_n])
+            }
+        } catch (error) 
+        {
+            alert(error)
+        }
+    }
 }

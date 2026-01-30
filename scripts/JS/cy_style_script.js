@@ -23,49 +23,49 @@ export let style = [
         }
     },
     {
-        selector: 'node[state1 = "UNVISITED"][state2 = "OPEN"]',
+        selector: 'node[state_f = "UNVISITED"][state_b = "OPEN"]',
         style: {
             'background-gradient-stop-colors': 'gray green', 
         }
     },
     {
-        selector: 'node[state1 = "UNVISITED"][state2 = "CLOSED"]',
+        selector: 'node[state_f = "UNVISITED"][state_b = "CLOSED"]',
         style: {
             'background-gradient-stop-colors': 'gray purple', 
         }
     },
     {
-        selector: 'node[state1 = "OPEN"][state2 = "UNVISITED"]',
+        selector: 'node[state_f = "OPEN"][state_b = "UNVISITED"]',
         style: {
             'background-gradient-stop-colors': 'orange gray', 
         }
     },
     {
-        selector: 'node[state1 = "OPEN"][state2 = "OPEN"]',
+        selector: 'node[state_f = "OPEN"][state_b = "OPEN"]',
         style: {
             'background-gradient-stop-colors': 'orange green', 
         }
     },
     {
-        selector: 'node[state1 = "OPEN"][state2 = "CLOSED"]',
+        selector: 'node[state_f = "OPEN"][state_b = "CLOSED"]',
         style: {
             'background-gradient-stop-colors': 'orange purple', 
         }
     },
     {
-        selector: 'node[state1 = "CLOSED"][state2 = "UNVISITED"]',
+        selector: 'node[state_f = "CLOSED"][state_b = "UNVISITED"]',
         style: {
             'background-gradient-stop-colors': 'red gray', 
         }
     },
     {
-        selector: 'node[state1 = "CLOSED"][state2 = "OPEN"]',
+        selector: 'node[state_f = "CLOSED"][state_b = "OPEN"]',
         style: {
             'background-gradient-stop-colors': 'red green', 
         }
     },
     {
-        selector: 'node[state1 = "CLOSED"][state2 = "CLOSED"]',
+        selector: 'node[state_f = "CLOSED"][state_b = "CLOSED"]',
         style: {
             'background-gradient-stop-colors': 'red purple', 
         }

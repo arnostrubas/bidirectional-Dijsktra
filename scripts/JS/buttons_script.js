@@ -1,4 +1,4 @@
-import { calculate, disableVertexAdding, enableVertexAdding, enableEdgeAdding, disableEdgeAdding, remove_edge, remove_vertex, reset } from './cytoscape_script.js'
+import { move, calculate, disableVertexAdding, enableVertexAdding, enableEdgeAdding, disableEdgeAdding, remove_edge, remove_vertex, reset } from './cytoscape_script.js'
 import { create_json_of_graphs } from './JS_json.js'
 
 const startBtn = document.getElementById('start');
@@ -38,9 +38,7 @@ function add_remove_enable()
     removeVertexBtn.disabled = false;
     removeEdgeBtn.disabled = false;
     addEdgeCheckBox.disabled = false;
-    enableEdgeAdding();
     addVertexCheckbox.disabled = false;
-    enableVertexAdding();
 }
 
 startBtn.addEventListener('click', () => {
@@ -118,4 +116,22 @@ addEdgeCheckBox.addEventListener('click', () => {
     catch (error) {
         alert(error.message)
     }
-})
+});
+
+nextBtn.addEventListener('click', () => {
+    try {
+        move(true);
+    }
+    catch (error) {
+        alert(error.message)
+    }
+});
+
+prevBtn.addEventListener('click', () => {
+    try {
+        move(false);
+    }
+    catch (error) {
+        alert(error.message)
+    }
+});

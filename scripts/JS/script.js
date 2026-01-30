@@ -7,10 +7,4 @@ window.python_ready = function ()
 {
     let ready = document.getElementById('python_ready');
     ready.style.backgroundColor = 'green';
-    test();
-}
-
-function test()
-{
-    alert(window.test());
 }
