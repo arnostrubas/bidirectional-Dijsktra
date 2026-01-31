@@ -29,6 +29,9 @@ let cy2 = cytoscape({
 let eh2 = cy2.edgehandles();
 let second_graph = null;
 let second_graph_list = [];
+let second_graph_n = 0;
+let second_graph_q_f = [];
+let second_graph_q_b = [];
 
 /* 
 ==================================================================================
