@@ -165,6 +165,9 @@ function update_queue()
 {
     setText('Qf1_text', queue_to_text(first_graph_q_f[first_graph_n]));
     setText('Qb1_text', queue_to_text(first_graph_q_b[first_graph_n]));
+
+    setText('Qf2_text', queue_to_text(second_graph_q_f[second_graph_n]));
+    setText('Qb2_text', queue_to_text(second_graph_q_b[second_graph_n]));
 }
 
 function reset_graphs()
@@ -173,6 +176,11 @@ function reset_graphs()
     first_graph_q_f = [];
     first_graph_q_b = [];
     first_graph_n = 0;
+
+    second_graph_list = [];
+    second_graph_q_f = [];
+    second_graph_q_b = [];
+    second_graph_n = 0;
 }
 
 /*
@@ -234,6 +242,7 @@ export function reset() {
     cy2.add(second_graph);
     cy2.layout(layout).run();
     cy2.fit();
+    reset_graphs();
 }
 
 export function enableEdgeAdding() {
@@ -258,14 +267,19 @@ export function calculate(json)
 {
     first_graph = cy1.elements().clone();
     second_graph = cy2.elements().clone();
-    reset_graphs();
 
     let result = window.run(json)
     const data = JSON.parse(result)
-    const first_part = data.part_one
+
+    const first_part = data.part_one;
     const first_steps = JSON.parse(first_part.steps);
     const first_path = first_part.path;
     const first_graph_data = first_steps.data;
+
+    const second_part = data.part_two;
+    const second_steps = JSON.parse(second_part.steps);
+    const second_path = second_part.path;
+    const second_graph_data = second_steps.data;
 
     first_graph_data.forEach(e => {
         let data = JSON.parse(e);
@@ -279,6 +293,19 @@ export function calculate(json)
         first_graph_q_b.push(queue_b);
     });
     createGraph(cy1, first_graph_list[first_graph_n]);
+
+    second_graph_data.forEach(e => {
+        let data = JSON.parse(e);
+        let graph = JSON.parse(data.graph);
+        let queue_f = JSON.parse(data.queue_f);
+        let queue_b = JSON.parse(data.queue_b);
+        
+        let elements = graph.elements;
+        second_graph_list.push(elements)
+        second_graph_q_f.push(queue_f);
+        second_graph_q_b.push(queue_b);
+    });
+    createGraph(cy2, second_graph_list[second_graph_n]);
     update_queue();
 }
 
@@ -286,35 +313,38 @@ export function move(next)
 {
     if (next) {
         try {
-            if (first_graph_n + 1 == first_graph_list.length) 
-            {
-                throw "End of algorithm";
+            if (first_graph_n + 1 == first_graph_list.length && 
+                second_graph_n + 1 == second_graph_list.length) {
+                throw "End of both algorithms";
             } 
-            else 
-            {
+            if (first_graph_n + 1 != first_graph_list.length) {
                 first_graph_n++;
                 createGraph(cy1, first_graph_list[first_graph_n]);
-                update_queue();
             }
-        } catch (error) 
-        {
+            if (second_graph_n + 1 != second_graph_list.length) {
+                second_graph_n++;
+                createGraph(cy2, second_graph_list[second_graph_n]);
+            }
+            update_queue();
+        } catch (error) {
             alert(error)
         }
     } 
     else {
         try {
-            if (first_graph_n == 0) 
-            {
-                throw "Cannot go back";
+            if (first_graph_n == 0 && second_graph_n == 0) {
+                throw "At the start of both algorithms";
             } 
-            else 
-            {
+            if (first_graph_n != 0) {
                 first_graph_n--;
                 createGraph(cy1, first_graph_list[first_graph_n]);
-                update_queue();
             }
-        } catch (error) 
-        {
+            if (second_graph_n != 0) {
+                second_graph_n--;
+                createGraph(cy2, second_graph_list[second_graph_n]);
+            }
+            update_queue();
+        } catch (error) {
             alert(error)
         }
     }
